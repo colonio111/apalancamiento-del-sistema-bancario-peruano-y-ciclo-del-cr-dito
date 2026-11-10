@@ -1,0 +1,11 @@
+# Los datos y el log se guardan byte por byte, sin convertir saltos de línea.
+# Así el archivo crudo queda tal como salió de la fuente y el hash SHA-256
+# del archivo procesado es el mismo en Windows, Mac o Linux.
+datos_crudos/** binary
+datos_procesados/** binary
+log_ejecucion.txt binary
+*.csv binary
+*.json binary
+*.XLS binary
+*.xls binary
+*.xlsx binary
