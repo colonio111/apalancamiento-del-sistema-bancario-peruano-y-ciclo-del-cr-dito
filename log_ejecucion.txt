@@ -1,0 +1,16 @@
+[2026-11-09 19:57:44] [01_api] Inicio de la extracción BCRP · periodo 2016-01 a 2025-12
+[2026-11-09 19:57:45] [01_api] PN00505MM (credito_privado): HTTP 200 · 120 filas
+[2026-11-09 19:57:48] [01_api] PN01773AM (pbi_desestacionalizado): HTTP 200 · 120 filas
+[2026-11-09 19:57:50] [01_api] PD04722MM (tasa_referencia): HTTP 200 · 120 filas
+[2026-11-09 19:57:52] [01_api] PN38705PM (ipc_lima): HTTP 200 · 120 filas
+[2026-11-09 19:57:52] [01_api] Archivo crudo guardado: datos_crudos\datos_crudos_bcrp_2024200495A.csv · 480 filas
+[2026-11-09 19:57:52] [01_api] Meses por serie: {'PD04722MM': 120, 'PN00505MM': 120, 'PN01773AM': 120, 'PN38705PM': 120}
+[2026-11-09 19:57:52] [01_api] Extracción BCRP terminada sin errores
+[2026-11-09 20:22:22] [01_api] Inicio de la extracción BCRP · periodo 2016-01 a 2025-12
+[2026-11-09 20:22:23] [01_api] PN00505MM (credito_privado): HTTP 200 · 120 filas
+[2026-11-09 20:22:25] [01_api] PN01773AM (pbi_desestacionalizado): HTTP 200 · 120 filas
+[2026-11-09 20:22:26] [01_api] PD04722MM (tasa_referencia): HTTP 200 · 120 filas
+[2026-11-09 20:22:28] [01_api] PN38705PM (ipc_lima): HTTP 200 · 120 filas
+[2026-11-09 20:22:28] [01_api] Archivo crudo guardado: datos_crudos\datos_crudos_bcrp_2024200495A.csv · 480 filas
+[2026-11-09 20:22:28] [01_api] Meses por serie: {'PD04722MM': 120, 'PN00505MM': 120, 'PN01773AM': 120, 'PN38705PM': 120}
+[2026-11-09 20:22:28] [01_api] Extracción BCRP terminada sin errores

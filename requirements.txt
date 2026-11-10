@@ -1,0 +1,6 @@
+# Librerías del proyecto con sus versiones exactas (probadas con Python 3.14).
+# Se requiere Python 3.11 o superior, porque pandas 3 no funciona en versiones anteriores.
+# Instalación:  python -m pip install -r requirements.txt
+#               (en Windows sin PATH:  py -m pip install -r requirements.txt)
+requests==2.34.2
+pandas==3.0.6

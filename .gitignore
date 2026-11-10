@@ -1,0 +1,13 @@
+# Claves y variables de entorno: NUNCA se suben al repositorio
+.env
+
+# Entornos virtuales y cachés de Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
