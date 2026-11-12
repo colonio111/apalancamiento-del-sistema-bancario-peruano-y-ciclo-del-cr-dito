@@ -412,3 +412,16 @@
 [2026-11-11 10:33:41] [02_sbs] Cifras extraídas: datos_crudos/datos_crudos_sbs_2024200495A.csv · 19710 filas
 [2026-11-11 10:33:41] [02_sbs] Observaciones banco-mes en el balance: 1971 · bancos distintos: 21
 [2026-11-11 10:33:41] [02_sbs] Extracción SBS terminada sin errores
+[2026-11-11 19:08:39] [03_limpieza] Inicio de la limpieza e integración de datos
+[2026-11-11 19:08:39] [03_limpieza] BCRP: 120 meses · valores vacíos por serie: {'credito_privado': 0, 'ipc_lima': 0, 'pbi_desestacionalizado': 0, 'tasa_referencia': 0}
+[2026-11-11 19:08:39] [03_limpieza] SBS: 1971 filas banco-mes · 21 bancos · valores no numéricos en el crudo: 0
+[2026-11-11 19:08:39] [03_limpieza] Bancos con los 120 meses completos: 15 · ['Alfin Banco', 'BANCOM', 'BBVA Perú', 'BCP', 'BanBif', 'Banco Falabella', 'Banco GNB', 'Banco ICBC', 'Banco Pichincha', 'Banco Ripley', 'Banco Santander Perú', 'Citibank Perú', 'Interbank', 'Mibanco', 'Scotiabank Perú']
+[2026-11-11 19:08:39] [03_limpieza] Bancos excluidos (meses disponibles): {'Banco BCI Perú': 42, 'Banco Cencosud': 38, 'Bank of China': 66, 'Compartamos Banco': 12, 'Deutsche Bank Perú': 6, 'Santander Consumer Bank': 7}
+[2026-11-11 19:08:39] [03_limpieza] Identidad activo = pasivo + patrimonio: diferencia máxima 0.039 miles de S/ · filas fuera de tolerancia: 0
+[2026-11-11 19:08:39] [03_limpieza] Valores vacíos en el panel: ninguno
+[2026-11-11 19:08:39] [03_limpieza] Unión SBS + BCRP por fecha: 1800 filas · filas sin dato macro: 0
+[2026-11-11 19:08:39] [03_limpieza] Atípicos del apalancamiento (fuera de [-4.41; 20.28]): 14 · por banco: {'Alfin Banco': 14}
+[2026-11-11 19:08:39] [03_limpieza] Apalancamiento acotado a los percentiles 1 y 99: [3.66; 15.59]
+[2026-11-11 19:08:39] [03_limpieza] Archivo final: datos_procesados/datos_procesados_2024200495A.csv · 1800 filas × 23 columnas · 15 bancos · 120 meses (2016-01 a 2025-12)
+[2026-11-11 19:08:39] [03_limpieza] SHA-256: 2b30700e11c1107a3b40e28d52f759f2ae269025a380992460b5e4cbd3e5ab36
+[2026-11-11 19:08:39] [03_limpieza] Limpieza terminada sin errores

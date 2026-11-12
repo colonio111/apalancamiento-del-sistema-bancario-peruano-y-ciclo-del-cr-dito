@@ -2,5 +2,7 @@
 # Se requiere Python 3.11 o superior, porque pandas 3 no funciona en versiones anteriores.
 # Instalación:  python -m pip install -r requirements.txt
 #               (en Windows sin PATH:  py -m pip install -r requirements.txt)
-requests==2.34.2
-pandas==3.0.6
+requests==2.34.2          # solicitudes HTTP (API del BCRP y portal de la SBS)
+pandas==3.0.6             # tablas de datos
+beautifulsoup4==4.15.0    # lectura del HTML del portal de la SBS (selectores CSS)
+python-calamine==0.9.1    # lectura de los Excel de la SBS (.xls antiguos y modernos)
