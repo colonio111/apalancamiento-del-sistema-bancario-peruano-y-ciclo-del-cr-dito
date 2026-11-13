@@ -1,8 +1,11 @@
-# Librerías del proyecto con sus versiones exactas (probadas con Python 3.14).
+# Librerías del proyecto con sus versiones exactas (probadas con Python 3.14.7 en Windows 11).
 # Se requiere Python 3.11 o superior, porque pandas 3 no funciona en versiones anteriores.
 # Instalación:  python -m pip install -r requirements.txt
 #               (en Windows sin PATH:  py -m pip install -r requirements.txt)
 requests==2.34.2          # solicitudes HTTP (API del BCRP y portal de la SBS)
 pandas==3.0.6             # tablas de datos
+numpy==2.5.3              # cálculo numérico (estimaciones econométricas)
 beautifulsoup4==4.15.0    # lectura del HTML del portal de la SBS (selectores CSS)
 python-calamine==0.9.1    # lectura de los Excel de la SBS (.xls antiguos y modernos)
+scipy==1.18.1             # distribuciones estadísticas (valores p)
+matplotlib==3.11.2        # figuras del artículo (SVG)

@@ -1,7 +1,7 @@
 # Autora: Lucia Pamela Colonio Yaringaño
 # Código de matrícula: 2024200495A
 # Tema N.º 85 del temario (Unidad II): Apalancamiento del sistema bancario peruano y ciclo del crédito
-# Fecha de extracción: 2026-11-11
+# Fecha de extracción: 2026-11-12
 """
 03_limpieza_datos.py · Limpieza, validación e integración de las dos vías.
 
@@ -19,11 +19,14 @@ Qué hace:
        activo real) y marca los valores atípicos sin borrarlos.
     6. Une la información de los bancos con las series del BCRP por la llave
        de fecha. La llave del panel es Entidad + fecha.
-    7. Guarda el archivo final y su huella digital SHA-256.
+    7. Guarda el panel, las series macro completas (con la pre-muestra
+       2010-2015 para el filtro de Hamilton) y sus huellas digitales SHA-256.
 
 Salidas:
-    datos_procesados/datos_procesados_2024200495A.csv   panel banco-mes final
-    datos_procesados/sha256_datos_procesados.txt         hash SHA-256 del archivo final
+    datos_procesados/datos_procesados_2024200495A.csv   panel banco-mes final (2016-01 a 2025-12)
+    datos_procesados/macro_mensual_2024200495A.csv      series del BCRP 2010-01 a 2025-12, con la
+                                                         pre-muestra para el filtro de Hamilton
+    datos_procesados/sha256_datos_procesados.txt         hash SHA-256 de los dos archivos
     log_ejecucion.txt                                     resumen de cada paso
 
 Ejecución (desde la carpeta raíz del repositorio):
@@ -43,9 +46,11 @@ import pandas as pd
 # 1. Parámetros
 # ---------------------------------------------------------------------------
 CODIGO_MATRICULA = "2024200495A"
-FECHA_INICIO = "2016-01"
+FECHA_INICIO = "2016-01"        # primer mes del panel de bancos
+FECHA_INICIO_MACRO = "2010-01"  # primer mes de las series del BCRP (pre-muestra)
 FECHA_CORTE = "2025-12"
-MESES_ESPERADOS = len(pd.period_range(FECHA_INICIO, FECHA_CORTE, freq="M"))  # 120
+MESES_ESPERADOS = len(pd.period_range(FECHA_INICIO, FECHA_CORTE, freq="M"))        # 120
+MESES_MACRO = len(pd.period_range(FECHA_INICIO_MACRO, FECHA_CORTE, freq="M"))      # 192
 
 # Meses abreviados que usa el BCRP en sus periodos ('Ene.2016', 'Set.2016'...)
 MESES_BCRP = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7,
@@ -74,6 +79,7 @@ ARCHIVO_LOG = RAIZ / "log_ejecucion.txt"
 ENTRADA_BCRP = CARPETA_CRUDOS / f"datos_crudos_bcrp_{CODIGO_MATRICULA}.csv"
 ENTRADA_SBS = CARPETA_CRUDOS / f"datos_crudos_sbs_{CODIGO_MATRICULA}.csv"
 SALIDA = CARPETA_PROCESADOS / f"datos_procesados_{CODIGO_MATRICULA}.csv"
+SALIDA_MACRO = CARPETA_PROCESADOS / f"macro_mensual_{CODIGO_MATRICULA}.csv"
 SALIDA_HASH = CARPETA_PROCESADOS / "sha256_datos_procesados.txt"
 
 
@@ -106,8 +112,8 @@ def preparar_bcrp() -> pd.DataFrame:
 
     vacios = macro.drop(columns=["anio", "mes"]).isna().sum()
     anotar(f"BCRP: {len(macro)} meses · valores vacíos por serie: {vacios.to_dict()}")
-    if len(macro) != MESES_ESPERADOS:
-        raise ValueError(f"El BCRP tiene {len(macro)} meses; se esperaban {MESES_ESPERADOS}")
+    if len(macro) != MESES_MACRO:
+        raise ValueError(f"El BCRP tiene {len(macro)} meses; se esperaban {MESES_MACRO}")
     return macro
 
 
@@ -242,16 +248,25 @@ def main() -> int:
         anotar("ERROR: hay filas repetidas para la llave entidad + fecha")
         return 1
 
-    # Formato fijo (6 decimales y saltos de línea '\n') para que el archivo,
-    # y por tanto su hash, sean idénticos en Windows, macOS y Linux.
+    # Series macro completas (con la pre-muestra) para el filtro de Hamilton
+    macro.insert(0, "fecha", pd.to_datetime(dict(year=macro["anio"], month=macro["mes"], day=1)).dt.strftime("%Y-%m"))
+    macro = macro.sort_values("fecha").reset_index(drop=True)
+
+    # Formato fijo (6 decimales y saltos de línea '\n') para que los archivos,
+    # y por tanto sus hashes, sean idénticos en Windows, macOS y Linux.
     panel.to_csv(SALIDA, index=False, encoding="utf-8", float_format="%.6f", lineterminator="\n")
+    macro.to_csv(SALIDA_MACRO, index=False, encoding="utf-8", float_format="%.6f", lineterminator="\n")
     huella = hashlib.sha256(SALIDA.read_bytes()).hexdigest()
-    SALIDA_HASH.write_text(f"{huella}  {SALIDA.name}\n", encoding="utf-8")
+    huella_macro = hashlib.sha256(SALIDA_MACRO.read_bytes()).hexdigest()
+    SALIDA_HASH.write_text(f"{huella}  {SALIDA.name}\n{huella_macro}  {SALIDA_MACRO.name}\n", encoding="utf-8")
 
     anotar(f"Archivo final: {SALIDA.relative_to(RAIZ).as_posix()} · {len(panel)} filas × {panel.shape[1]} columnas · "
            f"{panel['entidad'].nunique()} bancos · {panel['fecha'].nunique()} meses "
            f"({panel['fecha'].min()} a {panel['fecha'].max()})")
-    anotar(f"SHA-256: {huella}")
+    anotar(f"Series macro: {SALIDA_MACRO.relative_to(RAIZ).as_posix()} · {len(macro)} meses "
+           f"({macro['fecha'].min()} a {macro['fecha'].max()})")
+    anotar(f"SHA-256 del panel: {huella}")
+    anotar(f"SHA-256 de las series macro: {huella_macro}")
     anotar("Limpieza terminada sin errores")
     return 0
 

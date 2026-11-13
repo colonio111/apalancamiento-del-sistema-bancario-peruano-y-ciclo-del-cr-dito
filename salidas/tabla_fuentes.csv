@@ -1,0 +1,8 @@
+Vía,Fuente,Código,Variable,Unidad,Uso en el estudio
+Vía 1 · API REST,BCRP (BCRPData),PN00505MM,Crédito al sector privado (TC constante),Millones de S/,Brecha del crédito
+Vía 1 · API REST,BCRP (BCRPData),PN01773AM,PBI desestacionalizado,Índice 2007 = 100,Brecha del producto
+Vía 1 · API REST,BCRP (BCRPData),PD04722MM,Tasa de referencia,%,Control de política monetaria
+Vía 1 · API REST,BCRP (BCRPData),PN38705PM,IPC de Lima Metropolitana,Índice dic. 2021 = 100,Deflactor
+Vía 2 · Descarga programática,SBS,B-2201,"Activo, pasivo, patrimonio y créditos por banco",Millones de S/,Apalancamiento y tamaño
+Vía 2 · Descarga programática,SBS,B-2401,Morosidad por banco,%,Calidad de cartera
+Vía 2 · Descarga programática,SBS,B-2402,Ratio de capital global por banco,%,Colchón de capital

@@ -1,0 +1,8 @@
+Dimensión,Grupo,β,e.e.,IC 95 % inferior,IC 95 % superior,Valor p
+Periodo,Prepandemia 2016 a feb. 2020,0.887,0.034,0.82,0.955,0.0
+Periodo,Pandemia mar. 2020 a 2021,0.957,0.047,0.864,1.05,0.0
+Periodo,Pospandemia 2022 a 2025,0.983,0.027,0.929,1.038,0.0
+Colchón de capital,Colchón bajo (RCG < mediana),0.996,0.031,0.935,1.057,0.0
+Colchón de capital,Colchón alto (RCG > mediana),0.911,0.03,0.852,0.97,0.0
+Periodo,Diferencia pospandemia − prepandemia,0.096,0.046,,,0.036
+Colchón de capital,Diferencia colchón alto − colchón bajo,-0.085,0.045,,,0.059

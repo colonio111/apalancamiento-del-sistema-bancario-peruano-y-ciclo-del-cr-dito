@@ -1,0 +1,8 @@
+Especificación,β (Adrian-Shin),e.e. β,N (β),γ1 (brecha del crédito),e.e. γ1,γ2 (brecha del PBI),e.e. γ2,N (γ)
+"Base: apalancamiento acotado (P1-P99), brechas de Hamilton",0.917***,(0.029),1 785,0.342,(0.363),0.278***,(0.059),1 620
+Apalancamiento original (sin acotar),0.927***,(0.059),1 785,-0.059,(0.385),0.258**,(0.107),1 620
+Sin Alfin Banco,0.918***,(0.029),1 666,0.235,(0.292),0.267***,(0.077),1 512
+Brechas con el filtro HP (λ = 129 600),,,,0.891*,(0.463),0.292***,(0.055),1 620
+Sin los meses de pandemia (2020-03 a 2021-12),0.909***,(0.030),1 455,0.538,(0.423),-0.189,(0.261),1 290
+Sin los 4 bancos más grandes,0.915***,(0.030),1 309,0.183,(0.396),0.302***,(0.056),1 188
+Con efectos fijos de mes (absorben las brechas),0.914***,(0.029),1 785,,,,,

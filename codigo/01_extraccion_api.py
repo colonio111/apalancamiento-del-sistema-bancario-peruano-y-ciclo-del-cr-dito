@@ -1,12 +1,15 @@
 # Autora: Lucia Pamela Colonio Yaringaño
 # Código de matrícula: 2024200495A
 # Tema N.º 85 del temario (Unidad II): Apalancamiento del sistema bancario peruano y ciclo del crédito
-# Fecha de extracción: 2026-11-09
+# Fecha de extracción: 2026-11-12
 """
 01_extraccion_api.py · Vía 1 de extracción: API REST de BCRPData (BCRP).
 
 Descarga cuatro series mensuales del Banco Central de Reserva del Perú para el
-periodo congelado FECHA_INICIO a FECHA_CORTE:
+periodo congelado FECHA_INICIO a FECHA_CORTE (2010-01 a 2025-12). El panel de
+bancos empieza en 2016-01; los meses 2010-2015 son una pre-muestra que solo se
+usa para calcular las brechas del ciclo con el filtro de Hamilton (2018), que
+pierde los primeros 35 meses de cada serie (horizonte de 24 meses y 12 rezagos).
 
     PN00505MM  Crédito al sector privado, tipo de cambio constante (millones S/)
     PN01773AM  PBI desestacionalizado (índice 2007 = 100)
@@ -45,8 +48,8 @@ import requests
 #    pide exactamente el mismo periodo y las mismas series (numeral 2.4.5).
 # ---------------------------------------------------------------------------
 CODIGO_MATRICULA = "2024200495A"
-FECHA_INICIO = "2016-01"   # primer mes del panel
-FECHA_CORTE = "2025-12"    # último mes del panel (120 meses en total)
+FECHA_INICIO = "2010-01"   # inicio de la descarga (incluye la pre-muestra 2010-2015)
+FECHA_CORTE = "2025-12"    # último mes del panel (192 meses en total)
 
 # Código de serie del BCRP -> nombre corto de la variable en este proyecto
 SERIES_BCRP = {
@@ -172,7 +175,7 @@ def main() -> int:
     tabla.to_csv(ARCHIVO_CSV_CRUDO, index=False, encoding="utf-8")
     anotar(f"Archivo crudo guardado: {ARCHIVO_CSV_CRUDO.relative_to(RAIZ)} · {len(tabla)} filas")
 
-    # Control rápido: cada serie debe tener 120 meses
+    # Control rápido: cada serie debe tener 192 meses (2010-01 a 2025-12)
     if not tabla.empty:
         meses_por_serie = tabla.groupby("codigo_serie").size().to_dict()
         anotar(f"Meses por serie: {meses_por_serie}")

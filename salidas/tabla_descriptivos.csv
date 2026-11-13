@@ -1,0 +1,9 @@
+Variable,Unidad,N,Media,D.E.,D.E. entre bancos,D.E. dentro,Mín.,P25,Mediana,P75,Máx.
+Apalancamiento (acotado P1-P99),veces,1800,8.12,2.58,2.11,1.59,3.66,6.17,7.72,9.7,15.59
+Apalancamiento (original),veces,1800,11.33,126.72,12.6,126.13,2.93,6.17,7.72,9.7,5379.99
+Ratio de capital global,%,1800,17.56,7.51,6.95,3.36,2.89,14.04,15.22,17.49,68.33
+Morosidad,%,1800,3.52,2.33,1.97,1.35,0.0,2.59,3.33,4.36,22.7
+Activo real,miles de millones de S/ de 2021,1800,30.69,45.1,46.25,6.0,0.41,2.92,8.83,50.59,199.44
+Brecha del crédito real,%,1800,0.29,5.29,0.0,5.29,-7.57,-4.34,-1.1,4.65,12.45
+Brecha del PBI,%,1800,0.14,7.26,0.0,7.26,-49.3,-0.52,0.98,2.38,13.37
+Tasa de referencia,%,1800,3.82,2.16,0.0,2.16,0.25,2.75,4.12,5.0,7.75

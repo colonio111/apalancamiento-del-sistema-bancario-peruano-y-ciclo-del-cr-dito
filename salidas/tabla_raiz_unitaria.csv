@@ -1,0 +1,10 @@
+Panel,Variable,Determinísticos,Rezagos (mediana),Estadístico,Valor p,Estadístico 2,Valor p 2,Conclusión
+A. Bancos (15),ln apalancamiento,constante y tendencia,1,Z = -1.54,0.062,P = 43.6,0.052,Raíz unitaria
+A. Bancos (15),Δ ln apalancamiento,constante,0,Z = -13.35,0.0,P = 254.9,0.0,Estacionaria
+A. Bancos (15),ln activo real,constante y tendencia,1,Z = -2.86,0.002,P = 61.2,0.001,Estacionaria
+A. Bancos (15),Δ ln activo,constante,1,Z = -14.35,0.0,P = 277.3,0.0,Estacionaria
+A. Bancos (15),Ratio de capital global,constante,1,Z = -1.24,0.108,P = 39.6,0.113,Raíz unitaria
+A. Bancos (15),Morosidad,constante,3,Z = -2.18,0.015,P = 44.6,0.042,Estacionaria
+B. Series macro,Brecha del crédito,constante,0,τ = -1.39,0.587,,,Raíz unitaria
+B. Series macro,Brecha del PBI,constante,3,τ = -3.34,0.015,,,Estacionaria
+B. Series macro,Tasa de referencia,constante,4,τ = -2.48,0.121,,,Raíz unitaria

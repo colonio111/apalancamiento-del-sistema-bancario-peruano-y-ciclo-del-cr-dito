@@ -34,3 +34,20 @@ Llave: **entidad + fecha**. Los montos están en **millones de soles corrientes*
 1. **Armonización de nombres.** Los bancos que cambiaron de nombre en el periodo se tratan como una sola entidad: Banco Continental → BBVA Perú; Banco de Comercio → BANCOM; Banco Financiero → Banco Pichincha; Banco Azteca → Alfin Banco; Banco Interamericano de Finanzas → BanBif. El nombre original de cada archivo se conserva en `datos_crudos/datos_crudos_sbs_2024200495A.csv` (columna `entidad_sbs`).
 2. **Valores atípicos.** Los 14 casos marcados corresponden a Alfin Banco entre 2021-08 y 2022-09, cuando su patrimonio cayó casi a cero antes de su recapitalización (ver `incidencias_fuente.md`). No se elimina ninguna observación: el análisis usa `apalancamiento_w` y, como prueba de robustez, `apalancamiento`.
 3. Las brechas del crédito y del PBI (filtro de Hamilton) y las transformaciones logarítmicas se calculan en `04_analisis.py`, no en este archivo.
+
+## Series macro: `datos_procesados/macro_mensual_2024200495A.csv`
+
+192 filas (2010-01 a 2025-12) con `fecha`, `anio`, `mes`, `credito_privado`, `ipc_lima`, `pbi_desestacionalizado` y `tasa_referencia` (mismas definiciones de la tabla anterior). Los meses 2010-2015 son la pre-muestra del filtro de Hamilton.
+
+## Variables construidas en `04_analisis.py`
+
+| Variable | Definición | Unidad |
+|---|---|---|
+| Crédito real | `credito_privado` / (`ipc_lima` / 100) | millones de S/ de dic. 2021 |
+| Brecha del crédito | Residuo del filtro de Hamilton (h = 24, p = 12) sobre 100 · ln(crédito real) | % de desviación |
+| Brecha del PBI | Residuo del filtro de Hamilton (h = 24, p = 12) sobre 100 · ln(`pbi_desestacionalizado`) | % de desviación |
+| ln L | 100 · ln(`apalancamiento_w`) | log × 100 |
+| Δ ln L, Δ ln A | Variación mensual de 100 · ln del apalancamiento y del activo | % |
+| Δ12 ln L, Δ12 ln A | Variación a 12 meses | % |
+| Pandemia | 1 entre 2020-03 y 2021-12 | 0 / 1 |
+| Colchón alto | 1 si el ratio de capital global promedio del banco supera la mediana de los 15 bancos | 0 / 1 |

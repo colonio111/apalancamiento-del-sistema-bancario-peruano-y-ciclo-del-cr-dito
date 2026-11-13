@@ -1,0 +1,29 @@
+Variable,(1),(2),(3),(4)
+ln apalancamiento (t-1) (ρ),0.933***,0.920***,,
+,(0.025),(0.028),,
+Brecha del crédito (γ1),0.070,-0.028,0.801*,0.342
+,(0.050),(0.066),(0.476),(0.363)
+Brecha del PBI (γ2),-0.053***,-0.005,0.009,0.278***
+,(0.016),(0.024),(0.131),(0.059)
+Tasa de referencia (θ),-0.098,-0.017,-1.299,-0.366
+,(0.118),(0.108),(1.324),(0.758)
+Pandemia (2020-03 a 2021-12),,3.020**,,17.831***
+,,(1.217),,(3.075)
+Ratio de capital global (rezagado),-0.132,-0.164*,-0.121,0.017
+,(0.097),(0.098),(0.649),(0.631)
+Morosidad (rezagada),-0.128,-0.296,1.552,1.311
+,(0.280),(0.314),(1.416),(1.386)
+ln activo real (rezagado),-0.027,-0.032,-0.176***,-0.222***
+,(0.021),(0.021),(0.056),(0.045)
+Observaciones,1 785,1 785,1 620,1 620
+Bancos,15,15,15,15
+Meses,119,119,108,108
+R² within,0.876,0.877,0.218,0.272
+Largo plazo: brecha del crédito,1.042,-0.343,,
+,(0.892),(0.747),,
+Largo plazo: brecha del PBI,-0.793**,-0.061,,
+,(0.361),(0.312),,
+Variable dependiente,ln L,ln L,Δ12 ln L,Δ12 ln L
+Rezago de los controles,1 mes,1 mes,12 meses,12 meses
+Efectos fijos de banco,Sí,Sí,Sí,Sí
+Rezagos Driscoll-Kraay,4,4,12,12

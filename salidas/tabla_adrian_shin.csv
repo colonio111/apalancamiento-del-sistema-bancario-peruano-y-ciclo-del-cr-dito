@@ -1,0 +1,23 @@
+Variable,(1),(2),(3),(4),(5)
+Δ ln activo (β),0.905***,0.917***,0.913***,0.914***,0.856***
+,(0.030),(0.029),(0.028),(0.029),(0.043)
+Ratio de capital global (t-1),,0.135**,0.137**,0.130*,0.765
+,,(0.066),(0.064),(0.072),(0.642)
+Morosidad (t-1),,0.460***,0.453***,0.441***,2.565***
+,,(0.161),(0.151),(0.160),(0.794)
+ln activo real (t-1),,0.014,0.012,0.011,0.109
+,,(0.009),(0.010),(0.011),(0.075)
+Brecha del crédito,,,0.039,,
+,,,(0.033),,
+Brecha del PBI,,,-0.032***,,
+,,,(0.009),,
+Tasa de referencia,,,0.005,,
+,,,(0.071),,
+Observaciones,1 785,1 785,1 785,1 785,1 620
+Bancos,15,15,15,15,15
+Meses,119,119,119,119,108
+R² within,0.707,0.719,0.721,0.719,0.467
+Horizonte de la variación,1 mes,1 mes,1 mes,1 mes,12 meses
+Efectos fijos de banco,Sí,Sí,Sí,Sí,Sí
+Efectos fijos de mes,No,No,No,Sí,No
+Rezagos Driscoll-Kraay,4,4,4,4,12
