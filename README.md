@@ -147,24 +147,35 @@ shasum -a 256 datos_procesados/datos_procesados_2024200495A.csv
 
 ## 7. Salidas del análisis (`salidas/`)
 
+Todas las tablas y figuras con datos del artículo se generan con `04_analisis.py` a partir de `datos_procesados/`. La numeración corresponde a la versión final del artículo.
+
 | Archivo | En el artículo | Contenido |
 |---|---|---|
-| `tabla_fuentes.csv` | Tabla 1 | Fuentes, códigos y variables de las dos vías |
-| `fig_ciclos.svg` | Figura 2 | Brechas del crédito real y del PBI (filtro de Hamilton) y tasa de referencia |
-| `brechas_ciclo.csv` | — | Datos de las brechas |
-| `tabla_descriptivos.csv` | Tabla 2 | Estadística descriptiva (con desviación entre bancos y dentro de cada banco) |
-| `fig_apalancamiento.svg` | Figura 3 | Apalancamiento y ratio de capital global, 2016-2025 |
-| `fig_mapa_calor.svg` | Figura 4 | Apalancamiento promedio anual por banco |
-| `tabla_raiz_unitaria.csv` | Tabla 3 | Pruebas de raíz unitaria (Choi, Maddala-Wu y ADF) |
-| `tabla_adrian_shin.csv` | Tabla 4 | Prueba de prociclicidad de Adrian y Shin (H1) |
-| `fig_adrian_shin.svg` | Figura 5 | Crecimiento del activo frente al del apalancamiento |
-| `tabla_modelo_dinamico.csv` | Tabla 5 | Apalancamiento frente a las brechas del ciclo (H2) |
-| `fig_heterogeneidad.svg` | Figura 6 | Prociclicidad por periodo y por colchón de capital (H3) |
-| `tabla_heterogeneidad.csv` | Tabla A1 | Pendientes por grupo y pruebas de diferencia |
-| `tabla_robustez.csv` | Tabla 6, panel A | Resultados con especificaciones alternativas |
-| `tabla_robustez_gmm.csv` | Tabla 6, panel B | Modelo dinámico con System GMM y sus diagnósticos |
+| `tabla_bancos.csv` | Tabla 1 | Perfil de los 15 bancos del panel (activo, participación, apalancamiento, ratio de capital global y morosidad) |
+| `tabla_fuentes.csv` | Tabla 2 | Fuentes, códigos y variables de las dos vías |
+| `fig_ciclos.svg` | Figura 4 | Brechas del crédito real y del PBI (filtro de Hamilton) y tasa de referencia |
+| `brechas_ciclo.csv` | — | Datos de la Figura 4 |
+| `tabla_descriptivos.csv` | Tabla 4 | Estadística descriptiva (con desviación entre bancos y dentro de cada banco) |
+| `fig_apalancamiento.svg` | Figura 5 | Apalancamiento y ratio de capital global, 2016-2025 |
+| `fig_mapa_calor.svg` | Figura 6 | Apalancamiento promedio anual por banco |
+| `fig_morosidad_capital.svg` | Figura 7 | Morosidad y ratio de capital global, 2016-2025 |
+| `fig_correlaciones.svg` | Figura 8 | Correlaciones entre las variables del estudio |
+| `tabla_raiz_unitaria.csv` | Tabla 5 | Pruebas de raíz unitaria (Choi, Maddala-Wu y ADF) |
+| `tabla_adrian_shin.csv` | Tabla 6 | Prueba de prociclicidad de Adrian y Shin (H1) |
+| `fig_adrian_shin.svg` | Figura 9 | Crecimiento del activo frente al del apalancamiento |
+| `tabla_modelo_dinamico.csv` | Tabla 7 | Apalancamiento frente a las brechas del ciclo (H2) |
+| `fig_respuesta_dinamica.svg` | Figura 10 | Respuesta acumulada del apalancamiento a un aumento sostenido de las brechas |
+| `fig_heterogeneidad.svg` | Figura 11 | Prociclicidad por periodo y por colchón de capital (H3) |
+| `fig_beta_movil.svg` | Figura 12 | Prociclicidad en ventanas móviles de 36 meses |
+| `beta_movil.csv` | — | Datos de la Figura 12 |
+| `tabla_robustez.csv` | Tabla 8, panel A | Resultados con especificaciones alternativas |
+| `tabla_robustez_gmm.csv` | Tabla 8, panel B | Modelo dinámico con System GMM y sus diagnósticos |
+| `tabla_heterogeneidad.csv` | Tabla A2 | Pendientes por grupo y pruebas de diferencia |
+| `fig_bancos.svg` | Figura B1 | Apalancamiento mensual de cada banco |
 
-Métodos implementados en `04_analisis.py` con numpy y scipy: filtros de Hamilton y Hodrick-Prescott, efectos fijos con errores de Driscoll y Kraay, pruebas de raíz unitaria con valores p simulados (semilla 495, últimos dígitos del código de matrícula) y System GMM con instrumentos colapsados. El System GMM se validó con datos simulados antes de aplicarlo.
+Los demás elementos del artículo no contienen resultados de estimación: las Figuras 1 a 3 son esquemas (mecanismo, hitos del periodo y flujo de extracción), la Tabla 3 define las variables, la Tabla 9 compara los resultados con la literatura, la Tabla 10 resume el veredicto de las hipótesis con las cifras de las Tablas 6 a 8, y la Tabla A1 es la ficha de reproducibilidad.
+
+Métodos implementados en `04_analisis.py` con numpy y scipy: filtros de Hamilton y Hodrick-Prescott, efectos fijos con errores de Driscoll y Kraay, pruebas de raíz unitaria con valores p simulados (semilla 495, últimos dígitos del código de matrícula), System GMM con instrumentos colapsados, pendientes en ventanas móviles de 36 meses y respuesta acumulada del modelo dinámico con errores por el método delta. El System GMM se validó con datos simulados antes de aplicarlo.
 
 ## 8. Uso de inteligencia artificial
 

@@ -29,6 +29,14 @@ Bloques (cada uno genera sus tablas y figuras en /salidas):
          fig_heterogeneidad.svg     Figura 6: prociclicidad por periodo y por colchón de capital
          tabla_robustez.csv         Tabla 6, panel A: resultados principales con otras especificaciones
          tabla_robustez_gmm.csv     Tabla 6, panel B: modelo dinámico con System GMM
+    6. Análisis complementario
+         tabla_bancos.csv           perfil de cada banco (participación, apalancamiento, capital, morosidad)
+         beta_movil.csv             β de Adrian y Shin en ventanas móviles de 36 meses
+         fig_beta_movil.svg         β móvil con intervalo de confianza al 95 %
+         fig_bancos.svg             apalancamiento de cada uno de los 15 bancos
+         fig_morosidad_capital.svg  morosidad y ratio de capital global con los eventos del periodo
+         fig_correlaciones.svg      matriz de correlaciones de las variables del estudio
+         fig_respuesta_dinamica.svg respuesta acumulada del apalancamiento a las brechas del ciclo
 
 Método econométrico (implementado con numpy y scipy, sin cajas negras):
     - Efectos fijos por banco (transformación within) y, si se pide, por mes.
@@ -57,6 +65,7 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")  # dibuja sin abrir ventanas (funciona en cualquier computadora)
+import matplotlib.dates
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -149,8 +158,28 @@ def configurar_graficos() -> None:
     })
 
 
+def coma_decimal(figura: plt.Figure) -> None:
+    """
+    Escribe los números de los ejes con coma decimal (0,85 en vez de 0.85),
+    como en el texto del artículo. Solo cambia los ejes numéricos: las fechas
+    y los nombres de los bancos quedan igual.
+    """
+    from matplotlib.ticker import ScalarFormatter
+
+    class FormatoComa(ScalarFormatter):
+        """El formato normal de matplotlib (mismos decimales en todo el eje), con coma."""
+        def __call__(self, valor, posicion=None):
+            return super().__call__(valor, posicion).replace(".", ",")
+
+    for eje in figura.axes:
+        for eje_xy in (eje.xaxis, eje.yaxis):
+            if type(eje_xy.get_major_formatter()) is ScalarFormatter:
+                eje_xy.set_major_formatter(FormatoComa())
+
+
 def guardar_figura(figura: plt.Figure, nombre: str) -> None:
     """Guarda la figura en SVG dentro de /salidas, sin fecha interna (archivo reproducible)."""
+    coma_decimal(figura)
     figura.savefig(CARPETA_SALIDAS / nombre, format="svg", metadata={"Date": None})
     plt.close(figura)
     anotar(f"Figura guardada: salidas/{nombre}")
@@ -323,7 +352,7 @@ def tabla_descriptivos(panel: pd.DataFrame) -> pd.DataFrame:
         })
     tabla = pd.DataFrame(filas)
     numericas = tabla.columns.drop(["Variable", "Unidad", "N"])
-    tabla[numericas] = tabla[numericas].round(2)
+    tabla[numericas] = tabla[numericas].map(lambda v: f"{v:.2f}")   # siempre dos decimales
     return tabla
 
 
@@ -399,7 +428,6 @@ def figura_mapa_calor(panel: pd.DataFrame) -> plt.Figure:
     barra = figura.colorbar(imagen, ax=eje, fraction=0.025, pad=0.01)
     barra.set_label("Veces")
     barra.outline.set_visible(False)
-    eje.set_title("Apalancamiento promedio anual por banco (ordenados por tamaño del activo)")
     return figura
 
 
@@ -480,6 +508,11 @@ def estimar_efectos_fijos(datos: pd.DataFrame, y: str, xs: list[str], efectos_ti
     return {"coef": dict(zip(xs, beta)), "ee": dict(zip(xs, errores)), "p": dict(zip(xs, p)),
             "n": n_obs, "bancos": bancos, "meses": T, "r2_within": r2_within, "rezagos_dk": m,
             "efectos_tiempo": efectos_tiempo}
+
+
+def formato_p(p: float) -> str:
+    """Valor p con tres decimales; los muy pequeños se escriben como < 0.001."""
+    return "< 0.001" if p < 0.001 else f"{p:.3f}"
 
 
 def estrellas(p: float) -> str:
@@ -637,8 +670,8 @@ def tabla_raiz_unitaria(panel: pd.DataFrame, brechas: pd.DataFrame) -> pd.DataFr
             "Panel": "A. Bancos (15)", "Variable": nombre,
             "Determinísticos": "constante y tendencia" if tendencia else "constante",
             "Rezagos (mediana)": r["rezagos"],
-            "Estadístico": f"Z = {r['estadistico']:.2f}", "Valor p": round(r["p"], 3),
-            "Estadístico 2": f"P = {r['estadistico_2']:.1f}", "Valor p 2": round(r["p_2"], 3),
+            "Estadístico": f"Z = {r['estadistico']:.2f}", "Valor p": formato_p(r["p"]),
+            "Estadístico 2": f"P = {r['estadistico_2']:.1f}", "Valor p 2": formato_p(r["p_2"]),
             "Conclusión": "Estacionaria" if max(r["p"], r["p_2"]) < NIVEL_SIGNIFICANCIA
             else "Mixta" if min(r["p"], r["p_2"]) < NIVEL_SIGNIFICANCIA else "Raíz unitaria",
         })
@@ -648,7 +681,7 @@ def tabla_raiz_unitaria(panel: pd.DataFrame, brechas: pd.DataFrame) -> pd.DataFr
         p = valor_p_dickey_fuller(estadistico, n, tendencia=False)
         filas.append({
             "Panel": "B. Series macro", "Variable": nombre, "Determinísticos": "constante",
-            "Rezagos (mediana)": k, "Estadístico": f"τ = {estadistico:.2f}", "Valor p": round(p, 3),
+            "Rezagos (mediana)": k, "Estadístico": f"τ = {estadistico:.2f}", "Valor p": formato_p(p),
             "Estadístico 2": "", "Valor p 2": "",
             "Conclusión": "Estacionaria" if p < NIVEL_SIGNIFICANCIA else "Raíz unitaria",
         })
@@ -1155,13 +1188,16 @@ def bloque_5_heterogeneidad_y_robustez(panel: pd.DataFrame) -> None:
     beta_total = estimar_efectos_fijos(panel, "d_ln_L", ["d_ln_A"] + controles)["coef"]["d_ln_A"]
     heterogeneidad = pd.concat([por_periodo.assign(Dimensión="Periodo"), por_colchon.assign(Dimensión="Colchón de capital")])
     heterogeneidad["grupo"] = heterogeneidad["grupo"].str.replace("\n", " ")
-    heterogeneidad = heterogeneidad[["Dimensión", "grupo", "beta", "ee", "inferior", "superior", "p"]].round(3)
+    heterogeneidad = heterogeneidad[["Dimensión", "grupo", "beta", "ee", "inferior", "superior", "p"]]
+    for columna in ("beta", "ee", "inferior", "superior"):
+        heterogeneidad[columna] = heterogeneidad[columna].map(lambda v: f"{v:.3f}")
+    heterogeneidad["p"] = heterogeneidad["p"].map(formato_p)
     heterogeneidad.columns = ["Dimensión", "Grupo", "β", "e.e.", "IC 95 % inferior", "IC 95 % superior", "Valor p"]
     pruebas = pd.DataFrame([
         {"Dimensión": "Periodo", "Grupo": "Diferencia pospandemia − prepandemia",
-         "β": round(prueba_periodo["diferencia"], 3), "e.e.": round(prueba_periodo["ee"], 3), "Valor p": round(prueba_periodo["p"], 3)},
+         "β": f"{prueba_periodo['diferencia']:.3f}", "e.e.": f"{prueba_periodo['ee']:.3f}", "Valor p": formato_p(prueba_periodo["p"])},
         {"Dimensión": "Colchón de capital", "Grupo": "Diferencia colchón alto − colchón bajo",
-         "β": round(prueba_colchon["diferencia"], 3), "e.e.": round(prueba_colchon["ee"], 3), "Valor p": round(prueba_colchon["p"], 3)},
+         "β": f"{prueba_colchon['diferencia']:.3f}", "e.e.": f"{prueba_colchon['ee']:.3f}", "Valor p": formato_p(prueba_colchon["p"])},
     ])
     guardar_tabla(pd.concat([heterogeneidad, pruebas], ignore_index=True), "tabla_heterogeneidad.csv")
     guardar_figura(figura_heterogeneidad(por_periodo, por_colchon, beta_total), "fig_heterogeneidad.svg")
@@ -1179,7 +1215,254 @@ def bloque_5_heterogeneidad_y_robustez(panel: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 9. Programa principal
+# 9. Bloque 6 · Análisis complementario (dinámica de la prociclicidad y del riesgo)
+# ---------------------------------------------------------------------------
+VENTANA_MOVIL = 36            # meses de cada ventana de la β móvil (3 años)
+HORIZONTE_RESPUESTA = 36      # meses de la respuesta dinámica a una brecha
+EVENTOS = {                   # fechas que se marcan en las figuras del bloque
+    "2020-04": "Reactiva Perú",
+    "2021-08": "Inicio de alzas\nde la tasa",
+    "2023-01": "Colchones de\nBasilea III (SBS)",
+}
+VARIABLES_CORRELACION = {
+    "apalancamiento_w": "Apalancamiento",
+    "ratio_capital_global": "Ratio de capital global",
+    "morosidad": "Morosidad",
+    "ln_A_real": "ln activo real",
+    "d12_ln_A": "Crecimiento del activo (12 m)",
+    "brecha_credito": "Brecha del crédito",
+    "brecha_pbi": "Brecha del PBI",
+    "tasa_referencia": "Tasa de referencia",
+}
+
+
+def marcar_eventos(eje: plt.Axes, con_texto: bool = True) -> None:
+    """Líneas verticales punteadas en las fechas de EVENTOS."""
+    for fecha, texto in EVENTOS.items():
+        eje.axvline(pd.Timestamp(fecha), color=GRIS, lw=0.7, ls=":", zorder=1)
+        if con_texto:
+            eje.annotate(texto, (pd.Timestamp(fecha), 1.0), xycoords=("data", "axes fraction"),
+                         xytext=(3, -2), textcoords="offset points", ha="left", va="top",
+                         fontsize=6.3, color="#555555")
+
+
+def beta_movil(panel: pd.DataFrame) -> pd.DataFrame:
+    """
+    β de Adrian y Shin (modelo 2 de la Tabla 4) estimada en ventanas móviles de
+    VENTANA_MOVIL meses. Cada punto usa los meses (t - 35) a t, de modo que el valor
+    de un mes solo depende del pasado. Intervalo de confianza al 95 % con los
+    errores de Driscoll y Kraay de cada ventana.
+    """
+    controles = ["ratio_capital_global_l1", "morosidad_l1", "ln_A_real_l1"]
+    datos = panel.dropna(subset=["d_ln_L", "d_ln_A"] + controles)
+    meses = sorted(datos["fecha"].unique())
+    filas = []
+    for fin in range(VENTANA_MOVIL - 1, len(meses)):
+        ventana = datos[datos["fecha"].between(meses[fin - VENTANA_MOVIL + 1], meses[fin])]
+        m = estimar_efectos_fijos(ventana, "d_ln_L", ["d_ln_A"] + controles)
+        b, ee = m["coef"]["d_ln_A"], m["ee"]["d_ln_A"]
+        critico = stats.t.ppf(0.975, df=m["meses"] - 1)
+        filas.append({"fecha": meses[fin], "beta": b, "inferior": b - critico * ee, "superior": b + critico * ee})
+    return pd.DataFrame(filas)
+
+
+def figura_beta_movil(movil: pd.DataFrame, beta_total: float) -> plt.Figure:
+    """Figura: β móvil con su intervalo de confianza al 95 %."""
+    fechas = pd.to_datetime(movil["fecha"])
+    figura, eje = plt.subplots(figsize=(ANCHO_DOS_COLUMNAS, 2.6))
+    sombrear_pandemia(eje)
+    marcar_eventos(eje)
+    eje.fill_between(fechas, movil["inferior"], movil["superior"], color=AZUL, alpha=0.15, lw=0,
+                     label="Intervalo de confianza al 95 %")
+    eje.plot(fechas, movil["beta"], color=AZUL, lw=1.5, label=f"β en ventanas de {VENTANA_MOVIL} meses")
+    eje.axhline(beta_total, color=DORADO, lw=1.0, ls="--",
+                label=f"β de todo el periodo = {beta_total:.2f}".replace(".", ","))
+    eje.axhline(1, color=GRIS, lw=0.7, ls="-.", label="β = 1 (patrimonio constante)")
+    eje.set_ylabel("β: respuesta del apalancamiento\nal crecimiento del activo")
+    eje.set_xlabel(f"Último mes de la ventana de {VENTANA_MOVIL} meses")
+    eje.set_ylim(0.6, 1.2)
+    eje.legend(loc="upper center", bbox_to_anchor=(0.5, -0.28), ncol=4, fontsize=6.8)
+    return figura
+
+
+def figura_bancos(panel: pd.DataFrame) -> plt.Figure:
+    """
+    Figura: apalancamiento de cada banco (paneles pequeños, misma escala de tiempo).
+    Los bancos se ordenan de mayor a menor activo promedio; cada panel tiene su
+    propia escala vertical y la mediana de los 15 bancos como referencia.
+    """
+    orden = panel.groupby("entidad")["activo_total"].mean().sort_values(ascending=False).index
+    mediana = panel.groupby("fecha_dt")["apalancamiento_w"].median()
+    figura, ejes = plt.subplots(5, 3, figsize=(ANCHO_DOS_COLUMNAS, 7.2), sharex=True,
+                                gridspec_kw={"hspace": 0.55, "wspace": 0.22})
+    for eje, banco in zip(ejes.flat, orden):
+        serie = panel[panel["entidad"] == banco].set_index("fecha_dt")["apalancamiento_w"].sort_index()
+        sombrear_pandemia(eje)
+        eje.plot(mediana.index, mediana, color=GRIS, lw=0.8, ls="--")
+        eje.plot(serie.index, serie, color=AZUL, lw=1.2)
+        eje.set_title(banco, fontsize=7.5)
+        eje.tick_params(labelsize=6.5)
+        eje.xaxis.set_major_locator(matplotlib.dates.YearLocator(3))
+        eje.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%Y"))
+    ejes[0, 0].plot([], [], color=AZUL, lw=1.2, label="Banco")
+    ejes[0, 0].plot([], [], color=GRIS, lw=0.8, ls="--", label="Mediana de los 15 bancos")
+    figura.legend(*ejes[0, 0].get_legend_handles_labels(), loc="upper center", ncol=2,
+                  bbox_to_anchor=(0.5, 0.935))
+    figura.supylabel("Apalancamiento (veces, acotado P1-P99)", fontsize=8)
+    return figura
+
+
+def figura_morosidad_capital(panel: pd.DataFrame) -> plt.Figure:
+    """Figura: (a) morosidad y (b) ratio de capital global por banco, con los eventos del periodo."""
+    por_mes = panel.groupby("fecha_dt")
+    figura, (eje_a, eje_b) = plt.subplots(1, 2, figsize=(ANCHO_DOS_COLUMNAS, 2.6),
+                                          gridspec_kw={"wspace": 0.25})
+    for eje, columna, titulo in [(eje_a, "morosidad", "(a) Morosidad (%)"),
+                                 (eje_b, "ratio_capital_global", "(b) Ratio de capital global (%)")]:
+        sombrear_pandemia(eje)
+        marcar_eventos(eje, con_texto=False)
+        eje.xaxis.set_major_locator(matplotlib.dates.YearLocator(2))
+        eje.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%Y"))
+        eje.fill_between(por_mes[columna].quantile(0.25).index, por_mes[columna].quantile(0.25),
+                         por_mes[columna].quantile(0.75), color=AZUL, alpha=0.15, lw=0,
+                         label="Rango intercuartílico")
+        eje.plot(por_mes[columna].median(), color=AZUL, label="Mediana de los bancos")
+        eje.set_title(titulo)
+    eje_a.legend(loc="upper left")
+    linea, = eje_b.plot([], [], color=GRIS, lw=0.7, ls=":")
+    eje_b.legend([linea], ["Reactiva Perú (abr. 2020), alzas de la tasa\n(ago. 2021) y colchones de la SBS (ene. 2023)"],
+                 loc="upper left", fontsize=6.3)
+    return figura
+
+
+def figura_correlaciones(panel: pd.DataFrame) -> plt.Figure:
+    """Figura: matriz de correlaciones de Pearson entre las variables del estudio (panel completo)."""
+    datos = panel[list(VARIABLES_CORRELACION)].rename(columns=VARIABLES_CORRELACION)
+    matriz = datos.corr()
+    n = len(matriz)
+    figura, eje = plt.subplots(figsize=(ANCHO_UNA_COLUMNA + 0.4, 3.3))
+    mascara = np.triu(np.ones((n, n), dtype=bool), k=1)
+    valores = np.where(mascara, np.nan, matriz.to_numpy())
+    imagen = eje.imshow(valores, cmap="RdBu_r", vmin=-1, vmax=1)
+    for i in range(n):
+        for j in range(i + 1):
+            eje.text(j, i, f"{matriz.iat[i, j]:.2f}".replace(".", ","), ha="center", va="center",
+                     fontsize=5.8, color="white" if abs(matriz.iat[i, j]) > 0.6 else "#1a1a1a")
+    eje.set_xticks(range(n), matriz.columns, rotation=45, ha="right", fontsize=6.3)
+    eje.set_yticks(range(n), matriz.index, fontsize=6.3)
+    eje.tick_params(length=0)
+    eje.grid(False)
+    for lado in eje.spines.values():
+        lado.set_visible(False)
+    barra = figura.colorbar(imagen, ax=eje, fraction=0.04, pad=0.02)
+    barra.outline.set_visible(False)
+    barra.ax.tick_params(labelsize=6.3)
+    return figura
+
+
+def respuesta_dinamica(modelo: dict, variable: str, horizonte: int = HORIZONTE_RESPUESTA) -> pd.DataFrame:
+    """
+    Efecto acumulado sobre ln L (en %) de un aumento sostenido de 1 punto en la
+    brecha, según el modelo dinámico: γ·(1 - ρ^(k+1)) / (1 - ρ) a los k meses.
+    Intervalo de confianza al 95 % por el método delta.
+    """
+    g, r = modelo["coef"][variable], modelo["coef"]["ln_L_l1"]
+    V = modelo["V"].loc[[variable, "ln_L_l1"], [variable, "ln_L_l1"]].to_numpy()
+    filas = []
+    for k in range(horizonte + 1):
+        suma = (1 - r ** (k + 1)) / (1 - r)
+        d_suma = (-(k + 1) * r ** k * (1 - r) + (1 - r ** (k + 1))) / (1 - r) ** 2
+        efecto = g * suma
+        gradiente = np.array([suma, g * d_suma])
+        ee = float(np.sqrt(gradiente @ V @ gradiente))
+        filas.append({"mes": k, "efecto": efecto, "inferior": efecto - 1.96 * ee, "superior": efecto + 1.96 * ee})
+    return pd.DataFrame(filas)
+
+
+def figura_respuesta(respuestas: dict[str, dict[str, pd.DataFrame]]) -> plt.Figure:
+    """
+    Figura: respuesta acumulada del apalancamiento a un aumento sostenido de 1 punto
+    en cada brecha, sin y con el control de la pandemia (modelos 1 y 2 de la Tabla 5).
+    """
+    figura, ejes = plt.subplots(1, len(respuestas), figsize=(ANCHO_DOS_COLUMNAS, 2.5), sharey=True,
+                                gridspec_kw={"wspace": 0.08})
+    for eje, (titulo, por_modelo) in zip(ejes, respuestas.items()):
+        for (etiqueta, r), color, estilo in zip(por_modelo.items(), [DORADO, AZUL], ["--", "-"]):
+            eje.fill_between(r["mes"], r["inferior"], r["superior"], color=color, alpha=0.15, lw=0)
+            eje.plot(r["mes"], r["efecto"], color=color, lw=1.5, ls=estilo, label=etiqueta)
+        eje.axhline(0, color=GRIS, lw=0.8)
+        eje.set_title(titulo)
+        eje.set_xlabel("Meses después del aumento de la brecha")
+    ejes[0].set_ylabel("Cambio acumulado en el\napalancamiento (%)")
+    ejes[0].legend(loc="lower left")
+    return figura
+
+
+def tabla_bancos(panel: pd.DataFrame) -> pd.DataFrame:
+    """Tabla: perfil de cada banco (promedios 2016-2025 y participación en el activo a dic. 2025)."""
+    diciembre = panel[panel["fecha"] == FECHA_CORTE].set_index("entidad")["activo_total"]
+    resumen = panel.groupby("entidad").agg(
+        activo=("activo_total", "mean"), L=("apalancamiento", "median"),
+        rcg=("ratio_capital_global", "mean"), mora=("morosidad", "mean"))
+    resumen["cuota"] = 100 * diciembre / diciembre.sum()
+    resumen = resumen.sort_values("cuota", ascending=False)
+    rcg_mediana = resumen["rcg"].median()
+    return pd.DataFrame({
+        "Banco": resumen.index,
+        "Participación en el activo, dic. 2025 (%)": resumen["cuota"].map(lambda v: f"{v:.1f}"),
+        "Activo promedio (miles de millones de S/)": (resumen["activo"] / 1000).map(lambda v: f"{v:.1f}"),
+        "Apalancamiento (mediana, veces)": resumen["L"].map(lambda v: f"{v:.1f}"),
+        "Ratio de capital global (promedio, %)": resumen["rcg"].map(lambda v: f"{v:.1f}"),
+        "Morosidad (promedio, %)": resumen["mora"].map(lambda v: f"{v:.1f}"),
+        "Grupo de colchón": np.where(resumen["rcg"] > rcg_mediana, "Alto", "Bajo"),
+    })
+
+
+def bloque_6_complementario(panel: pd.DataFrame) -> None:
+    anotar("Bloque 6 · Análisis complementario")
+    controles = ["ratio_capital_global_l1", "morosidad_l1", "ln_A_real_l1"]
+    beta_total = estimar_efectos_fijos(panel, "d_ln_L", ["d_ln_A"] + controles)["coef"]["d_ln_A"]
+
+    movil = beta_movil(panel)
+    guardar_tabla(movil.assign(**{c: movil[c].map(lambda v: f"{v:.4f}") for c in ("beta", "inferior", "superior")}),
+                  "beta_movil.csv")
+    maximo, minimo = movil.loc[movil["beta"].idxmax()], movil.loc[movil["beta"].idxmin()]
+    anotar(f"β móvil ({VENTANA_MOVIL} meses): primera ventana {movil['beta'].iloc[0]:.3f} ({movil['fecha'].iloc[0]}) · "
+           f"última {movil['beta'].iloc[-1]:.3f} ({movil['fecha'].iloc[-1]}) · máximo {maximo['beta']:.3f} "
+           f"({maximo['fecha']}) · mínimo {minimo['beta']:.3f} ({minimo['fecha']})")
+    guardar_figura(figura_beta_movil(movil, beta_total), "fig_beta_movil.svg")
+
+    guardar_figura(figura_bancos(panel), "fig_bancos.svg")
+    guardar_figura(figura_morosidad_capital(panel), "fig_morosidad_capital.svg")
+    por_mes = panel.groupby("fecha")["morosidad"].median()
+    anotar(f"Morosidad mediana: {por_mes.iloc[0]:.2f} % ({FECHA_INICIO}) -> {por_mes.iloc[-1]:.2f} % ({FECHA_CORTE}) · "
+           f"máximo {por_mes.max():.2f} % ({por_mes.idxmax()})")
+
+    guardar_figura(figura_correlaciones(panel), "fig_correlaciones.svg")
+    matriz = panel[list(VARIABLES_CORRELACION)].corr()
+    anotar(f"Correlación apalancamiento-ratio de capital: {matriz.loc['apalancamiento_w', 'ratio_capital_global']:.3f} · "
+           f"apalancamiento-morosidad: {matriz.loc['apalancamiento_w', 'morosidad']:.3f}")
+
+    base = ["ln_L_l1"] + VARIABLES_CICLO + CONTROLES_BANCO
+    modelos = {"Sin control de pandemia (modelo 1)": estimar_efectos_fijos_con_v(panel, "ln_L", base),
+               "Con control de pandemia (modelo 2)": estimar_efectos_fijos_con_v(panel, "ln_L", base + ["pandemia"])}
+    respuestas = {titulo: {nombre: respuesta_dinamica(m, variable) for nombre, m in modelos.items()}
+                  for titulo, variable in [("(a) Brecha del crédito", "brecha_credito"),
+                                           ("(b) Brecha del PBI", "brecha_pbi")]}
+    for titulo, por_modelo in respuestas.items():
+        for nombre, r in por_modelo.items():
+            for k in (12, HORIZONTE_RESPUESTA):
+                f = r.iloc[k]
+                anotar(f"Respuesta · {titulo} · {nombre} · a {k} meses: {f['efecto']:.3f} % "
+                       f"(IC 95 %: {f['inferior']:.3f} a {f['superior']:.3f})")
+    guardar_figura(figura_respuesta(respuestas), "fig_respuesta_dinamica.svg")
+
+    bancos = tabla_bancos(panel)
+    guardar_tabla(bancos, "tabla_bancos.csv")
+
+
+# ---------------------------------------------------------------------------
+# 10. Programa principal
 # ---------------------------------------------------------------------------
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
@@ -1201,6 +1484,7 @@ def main() -> int:
     panel = bloque_3_prociclicidad(panel, brechas)
     panel = bloque_4_modelo_dinamico(panel)
     bloque_5_heterogeneidad_y_robustez(panel)
+    bloque_6_complementario(panel)
 
     anotar("Análisis terminado sin errores")
     return 0

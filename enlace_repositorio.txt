@@ -1,0 +1,5 @@
+Repositorio GitHub del proyecto (codigo, datos y salidas)
+Tema 85: Apalancamiento del sistema bancario peruano y ciclo del credito
+Autora: Lucia Pamela Colonio Yaringaño (2024200495A)
+
+https://github.com/colonio111/apalancamiento-del-sistema-bancario-peruano-y-ciclo-del-cr-dito

@@ -657,3 +657,298 @@
 [2026-11-12 08:42:09] [04_analisis] Tabla guardada: salidas/tabla_robustez_gmm.csv · 16 filas
 [2026-11-12 08:42:09] [04_analisis] System GMM: ρ = -0.007 · 14 instrumentos · Hansen p = 0.010 · AR(1) p = 0.119 · AR(2) p = 0.105
 [2026-11-12 08:42:09] [04_analisis] Análisis terminado sin errores
+[2026-11-13 09:56:14] [04_analisis] Inicio del análisis
+[2026-11-13 09:56:14] [04_analisis] Versiones: Python 3.14.7 · numpy 2.5.3 · pandas 3.0.6 · scipy 1.18.1 · matplotlib 3.11.2
+[2026-11-13 09:56:14] [04_analisis] Bloque 1 · Fuentes y ciclo económico
+[2026-11-13 09:56:14] [04_analisis] Tabla guardada: salidas/tabla_fuentes.csv · 7 filas
+[2026-11-13 09:56:14] [04_analisis] Tabla guardada: salidas/brechas_ciclo.csv · 120 filas
+[2026-11-13 09:56:14] [04_analisis] brecha_credito: mínimo -7.57 % (2024-02) · máximo 12.45 % (2020-08) · desv. est. 5.31
+[2026-11-13 09:56:14] [04_analisis] brecha_pbi: mínimo -49.30 % (2020-04) · máximo 13.37 % (2023-03) · desv. est. 7.29
+[2026-11-13 09:56:14] [04_analisis] Correlación entre la brecha del crédito y la del PBI: -0.413
+[2026-11-13 09:56:15] [04_analisis] Figura guardada: salidas/fig_ciclos.svg
+[2026-11-13 09:56:15] [04_analisis] Bloque 2 · Análisis descriptivo del panel de bancos
+[2026-11-13 09:56:15] [04_analisis] Tabla guardada: salidas/tabla_descriptivos.csv · 8 filas
+[2026-11-13 09:56:15] [04_analisis] Apalancamiento del sistema: 10.28 veces (2016-01) -> 7.24 veces (2025-12) · máximo 10.70 (2016-03)
+[2026-11-13 09:56:15] [04_analisis] Ratio de capital global (mediana): 14.38 % -> 18.59 %
+[2026-11-13 09:56:15] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2016): 83.1 %
+[2026-11-13 09:56:15] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2025): 83.7 %
+[2026-11-13 09:56:15] [04_analisis] Correlación entre apalancamiento acotado y ratio de capital global: -0.372
+[2026-11-13 09:56:15] [04_analisis] Figura guardada: salidas/fig_apalancamiento.svg
+[2026-11-13 09:56:16] [04_analisis] Figura guardada: salidas/fig_mapa_calor.svg
+[2026-11-13 09:56:16] [04_analisis] Bloque 3 · Estacionariedad y prueba de prociclicidad (H1)
+[2026-11-13 09:56:18] [04_analisis] Tabla guardada: salidas/tabla_raiz_unitaria.csv · 9 filas
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · ln apalancamiento: Z = -1.54 (p = 0.062) -> Raíz unitaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Δ ln apalancamiento: Z = -13.35 (p = 0.0) -> Estacionaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · ln activo real: Z = -2.86 (p = 0.002) -> Estacionaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Δ ln activo: Z = -14.35 (p = 0.0) -> Estacionaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Ratio de capital global: Z = -1.24 (p = 0.108) -> Raíz unitaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Morosidad: Z = -2.18 (p = 0.015) -> Estacionaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Brecha del crédito: τ = -1.39 (p = 0.587) -> Raíz unitaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Brecha del PBI: τ = -3.34 (p = 0.015) -> Estacionaria
+[2026-11-13 09:56:18] [04_analisis] Raíz unitaria · Tasa de referencia: τ = -2.48 (p = 0.121) -> Raíz unitaria
+[2026-11-13 09:56:18] [04_analisis] Adrian-Shin (1): β = 0.905 (e.e. DK 0.030, p = 0.0000) · N = 1785 · R² within = 0.707
+[2026-11-13 09:56:18] [04_analisis] Adrian-Shin (2): β = 0.917 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-13 09:56:18] [04_analisis] Adrian-Shin (3): β = 0.913 (e.e. DK 0.028, p = 0.0000) · N = 1785 · R² within = 0.721
+[2026-11-13 09:56:18] [04_analisis] Adrian-Shin (4): β = 0.914 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-13 09:56:18] [04_analisis] Adrian-Shin (5): β = 0.856 (e.e. DK 0.043, p = 0.0000) · N = 1620 · R² within = 0.467
+[2026-11-13 09:56:18] [04_analisis] Tabla guardada: salidas/tabla_adrian_shin.csv · 22 filas
+[2026-11-13 09:56:19] [04_analisis] Figura guardada: salidas/fig_adrian_shin.svg
+[2026-11-13 09:56:19] [04_analisis] Bloque 4 · Modelo dinámico del apalancamiento frente al ciclo (H2)
+[2026-11-13 09:56:19] [04_analisis] Modelo (1): ρ = 0.933 · γ1 (crédito) = 0.0698 (p = 0.168) · γ2 (PBI) = -0.0531 (p = 0.001) · N = 1785
+[2026-11-13 09:56:19] [04_analisis] Modelo (2): ρ = 0.920 · γ1 (crédito) = -0.0276 (p = 0.678) · γ2 (PBI) = -0.0049 (p = 0.838) · N = 1785
+[2026-11-13 09:56:19] [04_analisis] Modelo (3): γ1 (crédito) = 0.8011 (p = 0.095) · γ2 (PBI) = 0.0086 (p = 0.948) · N = 1620
+[2026-11-13 09:56:19] [04_analisis] Modelo (4): γ1 (crédito) = 0.3416 (p = 0.349) · γ2 (PBI) = 0.2783 (p = 0.000) · N = 1620
+[2026-11-13 09:56:19] [04_analisis] Orden de magnitud del sesgo de Nickell en (1)-(2), (1 + ρ)/(T − 1): 0.016
+[2026-11-13 09:56:19] [04_analisis] Modelo (1) · Largo plazo: brecha del crédito: 1.042 (e.e. 0.892, p = 0.243)
+[2026-11-13 09:56:19] [04_analisis] Modelo (2) · Largo plazo: brecha del crédito: -0.343 (e.e. 0.747, p = 0.646)
+[2026-11-13 09:56:19] [04_analisis] Modelo (1) · Largo plazo: brecha del PBI: -0.793 (e.e. 0.361, p = 0.028)
+[2026-11-13 09:56:19] [04_analisis] Modelo (2) · Largo plazo: brecha del PBI: -0.061 (e.e. 0.312, p = 0.846)
+[2026-11-13 09:56:19] [04_analisis] Tabla guardada: salidas/tabla_modelo_dinamico.csv · 28 filas
+[2026-11-13 09:56:19] [04_analisis] Bloque 5 · Heterogeneidad (H3) y robustez
+[2026-11-13 09:56:19] [04_analisis] Bancos con colchón alto (7): ['Alfin Banco', 'Banco Falabella', 'Banco ICBC', 'Banco Santander Perú', 'Citibank Perú', 'Interbank', 'Mibanco']
+[2026-11-13 09:56:19] [04_analisis] β · Prepandemia 2016 a feb. 2020: 0.887 (IC 95 %: 0.820 a 0.955)
+[2026-11-13 09:56:19] [04_analisis] β · Pandemia mar. 2020 a 2021: 0.957 (IC 95 %: 0.864 a 1.050)
+[2026-11-13 09:56:19] [04_analisis] β · Pospandemia 2022 a 2025: 0.983 (IC 95 %: 0.929 a 1.038)
+[2026-11-13 09:56:19] [04_analisis] β · Colchón bajo (RCG < mediana): 0.996 (IC 95 %: 0.935 a 1.057)
+[2026-11-13 09:56:19] [04_analisis] β · Colchón alto (RCG > mediana): 0.911 (IC 95 %: 0.852 a 0.970)
+[2026-11-13 09:56:19] [04_analisis] Diferencia pospandemia − prepandemia: 0.096 (p = 0.036)
+[2026-11-13 09:56:19] [04_analisis] Diferencia colchón alto − colchón bajo: -0.085 (p = 0.059)
+[2026-11-13 09:56:19] [04_analisis] Tabla guardada: salidas/tabla_heterogeneidad.csv · 7 filas
+[2026-11-13 09:56:19] [04_analisis] Figura guardada: salidas/fig_heterogeneidad.svg
+[2026-11-13 09:56:19] [04_analisis] Tabla guardada: salidas/tabla_robustez.csv · 7 filas
+[2026-11-13 09:56:19] [04_analisis] Robustez · Base: apalancamiento acotado (P1-P99), brechas de Hamilton: β = 0.917*** · γ2 = 0.278***
+[2026-11-13 09:56:19] [04_analisis] Robustez · Apalancamiento original (sin acotar): β = 0.927*** · γ2 = 0.258**
+[2026-11-13 09:56:19] [04_analisis] Robustez · Sin Alfin Banco: β = 0.918*** · γ2 = 0.267***
+[2026-11-13 09:56:19] [04_analisis] Robustez · Brechas con el filtro HP (λ = 129 600): β = — · γ2 = 0.292***
+[2026-11-13 09:56:19] [04_analisis] Robustez · Sin los meses de pandemia (2020-03 a 2021-12): β = 0.909*** · γ2 = -0.189
+[2026-11-13 09:56:19] [04_analisis] Robustez · Sin los 4 bancos más grandes: β = 0.915*** · γ2 = 0.302***
+[2026-11-13 09:56:19] [04_analisis] Robustez · Con efectos fijos de mes (absorben las brechas): β = 0.914*** · γ2 = —
+[2026-11-13 09:56:19] [04_analisis] Tabla guardada: salidas/tabla_robustez_gmm.csv · 16 filas
+[2026-11-13 09:56:19] [04_analisis] System GMM: ρ = -0.007 · 14 instrumentos · Hansen p = 0.010 · AR(1) p = 0.119 · AR(2) p = 0.105
+[2026-11-13 09:56:19] [04_analisis] Análisis terminado sin errores
+[2026-11-14 12:53:15] [04_analisis] Inicio del análisis
+[2026-11-14 12:53:15] [04_analisis] Versiones: Python 3.14.7 · numpy 2.5.3 · pandas 3.0.6 · scipy 1.18.1 · matplotlib 3.11.2
+[2026-11-14 12:53:15] [04_analisis] Bloque 1 · Fuentes y ciclo económico
+[2026-11-14 12:53:15] [04_analisis] Tabla guardada: salidas/tabla_fuentes.csv · 7 filas
+[2026-11-14 12:53:15] [04_analisis] Tabla guardada: salidas/brechas_ciclo.csv · 120 filas
+[2026-11-14 12:53:15] [04_analisis] brecha_credito: mínimo -7.57 % (2024-02) · máximo 12.45 % (2020-08) · desv. est. 5.31
+[2026-11-14 12:53:15] [04_analisis] brecha_pbi: mínimo -49.30 % (2020-04) · máximo 13.37 % (2023-03) · desv. est. 7.29
+[2026-11-14 12:53:15] [04_analisis] Correlación entre la brecha del crédito y la del PBI: -0.413
+[2026-11-14 12:53:15] [04_analisis] Figura guardada: salidas/fig_ciclos.svg
+[2026-11-14 12:53:15] [04_analisis] Bloque 2 · Análisis descriptivo del panel de bancos
+[2026-11-14 12:53:15] [04_analisis] Tabla guardada: salidas/tabla_descriptivos.csv · 8 filas
+[2026-11-14 12:53:15] [04_analisis] Apalancamiento del sistema: 10.28 veces (2016-01) -> 7.24 veces (2025-12) · máximo 10.70 (2016-03)
+[2026-11-14 12:53:15] [04_analisis] Ratio de capital global (mediana): 14.38 % -> 18.59 %
+[2026-11-14 12:53:15] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2016): 83.1 %
+[2026-11-14 12:53:15] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2025): 83.7 %
+[2026-11-14 12:53:15] [04_analisis] Correlación entre apalancamiento acotado y ratio de capital global: -0.372
+[2026-11-14 12:53:16] [04_analisis] Figura guardada: salidas/fig_apalancamiento.svg
+[2026-11-14 12:53:16] [04_analisis] Figura guardada: salidas/fig_mapa_calor.svg
+[2026-11-14 12:53:16] [04_analisis] Bloque 3 · Estacionariedad y prueba de prociclicidad (H1)
+[2026-11-14 12:53:18] [04_analisis] Tabla guardada: salidas/tabla_raiz_unitaria.csv · 9 filas
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · ln apalancamiento: Z = -1.54 (p = 0.062) -> Raíz unitaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Δ ln apalancamiento: Z = -13.35 (p = < 0.001) -> Estacionaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · ln activo real: Z = -2.86 (p = 0.002) -> Estacionaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Δ ln activo: Z = -14.35 (p = < 0.001) -> Estacionaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Ratio de capital global: Z = -1.24 (p = 0.108) -> Raíz unitaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Morosidad: Z = -2.18 (p = 0.015) -> Estacionaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Brecha del crédito: τ = -1.39 (p = 0.587) -> Raíz unitaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Brecha del PBI: τ = -3.34 (p = 0.015) -> Estacionaria
+[2026-11-14 12:53:18] [04_analisis] Raíz unitaria · Tasa de referencia: τ = -2.48 (p = 0.121) -> Raíz unitaria
+[2026-11-14 12:53:18] [04_analisis] Adrian-Shin (1): β = 0.905 (e.e. DK 0.030, p = 0.0000) · N = 1785 · R² within = 0.707
+[2026-11-14 12:53:18] [04_analisis] Adrian-Shin (2): β = 0.917 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-14 12:53:18] [04_analisis] Adrian-Shin (3): β = 0.913 (e.e. DK 0.028, p = 0.0000) · N = 1785 · R² within = 0.721
+[2026-11-14 12:53:18] [04_analisis] Adrian-Shin (4): β = 0.914 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-14 12:53:18] [04_analisis] Adrian-Shin (5): β = 0.856 (e.e. DK 0.043, p = 0.0000) · N = 1620 · R² within = 0.467
+[2026-11-14 12:53:18] [04_analisis] Tabla guardada: salidas/tabla_adrian_shin.csv · 22 filas
+[2026-11-14 12:53:18] [04_analisis] Figura guardada: salidas/fig_adrian_shin.svg
+[2026-11-14 12:53:18] [04_analisis] Bloque 4 · Modelo dinámico del apalancamiento frente al ciclo (H2)
+[2026-11-14 12:53:19] [04_analisis] Modelo (1): ρ = 0.933 · γ1 (crédito) = 0.0698 (p = 0.168) · γ2 (PBI) = -0.0531 (p = 0.001) · N = 1785
+[2026-11-14 12:53:19] [04_analisis] Modelo (2): ρ = 0.920 · γ1 (crédito) = -0.0276 (p = 0.678) · γ2 (PBI) = -0.0049 (p = 0.838) · N = 1785
+[2026-11-14 12:53:19] [04_analisis] Modelo (3): γ1 (crédito) = 0.8011 (p = 0.095) · γ2 (PBI) = 0.0086 (p = 0.948) · N = 1620
+[2026-11-14 12:53:19] [04_analisis] Modelo (4): γ1 (crédito) = 0.3416 (p = 0.349) · γ2 (PBI) = 0.2783 (p = 0.000) · N = 1620
+[2026-11-14 12:53:19] [04_analisis] Orden de magnitud del sesgo de Nickell en (1)-(2), (1 + ρ)/(T − 1): 0.016
+[2026-11-14 12:53:19] [04_analisis] Modelo (1) · Largo plazo: brecha del crédito: 1.042 (e.e. 0.892, p = 0.243)
+[2026-11-14 12:53:19] [04_analisis] Modelo (2) · Largo plazo: brecha del crédito: -0.343 (e.e. 0.747, p = 0.646)
+[2026-11-14 12:53:19] [04_analisis] Modelo (1) · Largo plazo: brecha del PBI: -0.793 (e.e. 0.361, p = 0.028)
+[2026-11-14 12:53:19] [04_analisis] Modelo (2) · Largo plazo: brecha del PBI: -0.061 (e.e. 0.312, p = 0.846)
+[2026-11-14 12:53:19] [04_analisis] Tabla guardada: salidas/tabla_modelo_dinamico.csv · 28 filas
+[2026-11-14 12:53:19] [04_analisis] Bloque 5 · Heterogeneidad (H3) y robustez
+[2026-11-14 12:53:19] [04_analisis] Bancos con colchón alto (7): ['Alfin Banco', 'Banco Falabella', 'Banco ICBC', 'Banco Santander Perú', 'Citibank Perú', 'Interbank', 'Mibanco']
+[2026-11-14 12:53:19] [04_analisis] β · Prepandemia 2016 a feb. 2020: 0.887 (IC 95 %: 0.820 a 0.955)
+[2026-11-14 12:53:19] [04_analisis] β · Pandemia mar. 2020 a 2021: 0.957 (IC 95 %: 0.864 a 1.050)
+[2026-11-14 12:53:19] [04_analisis] β · Pospandemia 2022 a 2025: 0.983 (IC 95 %: 0.929 a 1.038)
+[2026-11-14 12:53:19] [04_analisis] β · Colchón bajo (RCG < mediana): 0.996 (IC 95 %: 0.935 a 1.057)
+[2026-11-14 12:53:19] [04_analisis] β · Colchón alto (RCG > mediana): 0.911 (IC 95 %: 0.852 a 0.970)
+[2026-11-14 12:53:19] [04_analisis] Diferencia pospandemia − prepandemia: 0.096 (p = 0.036)
+[2026-11-14 12:53:19] [04_analisis] Diferencia colchón alto − colchón bajo: -0.085 (p = 0.059)
+[2026-11-14 12:53:19] [04_analisis] Tabla guardada: salidas/tabla_heterogeneidad.csv · 7 filas
+[2026-11-14 12:53:19] [04_analisis] Figura guardada: salidas/fig_heterogeneidad.svg
+[2026-11-14 12:53:19] [04_analisis] Tabla guardada: salidas/tabla_robustez.csv · 7 filas
+[2026-11-14 12:53:19] [04_analisis] Robustez · Base: apalancamiento acotado (P1-P99), brechas de Hamilton: β = 0.917*** · γ2 = 0.278***
+[2026-11-14 12:53:19] [04_analisis] Robustez · Apalancamiento original (sin acotar): β = 0.927*** · γ2 = 0.258**
+[2026-11-14 12:53:19] [04_analisis] Robustez · Sin Alfin Banco: β = 0.918*** · γ2 = 0.267***
+[2026-11-14 12:53:19] [04_analisis] Robustez · Brechas con el filtro HP (λ = 129 600): β = — · γ2 = 0.292***
+[2026-11-14 12:53:19] [04_analisis] Robustez · Sin los meses de pandemia (2020-03 a 2021-12): β = 0.909*** · γ2 = -0.189
+[2026-11-14 12:53:19] [04_analisis] Robustez · Sin los 4 bancos más grandes: β = 0.915*** · γ2 = 0.302***
+[2026-11-14 12:53:19] [04_analisis] Robustez · Con efectos fijos de mes (absorben las brechas): β = 0.914*** · γ2 = —
+[2026-11-14 12:53:19] [04_analisis] Tabla guardada: salidas/tabla_robustez_gmm.csv · 16 filas
+[2026-11-14 12:53:19] [04_analisis] System GMM: ρ = -0.007 · 14 instrumentos · Hansen p = 0.010 · AR(1) p = 0.119 · AR(2) p = 0.105
+[2026-11-14 12:53:19] [04_analisis] Análisis terminado sin errores
+[2026-11-14 13:43:34] [04_analisis] Inicio del análisis
+[2026-11-14 13:43:34] [04_analisis] Versiones: Python 3.14.7 · numpy 2.5.3 · pandas 3.0.6 · scipy 1.18.1 · matplotlib 3.11.2
+[2026-11-14 13:43:34] [04_analisis] Bloque 1 · Fuentes y ciclo económico
+[2026-11-14 13:43:34] [04_analisis] Tabla guardada: salidas/tabla_fuentes.csv · 7 filas
+[2026-11-14 13:43:34] [04_analisis] Tabla guardada: salidas/brechas_ciclo.csv · 120 filas
+[2026-11-14 13:43:34] [04_analisis] brecha_credito: mínimo -7.57 % (2024-02) · máximo 12.45 % (2020-08) · desv. est. 5.31
+[2026-11-14 13:43:34] [04_analisis] brecha_pbi: mínimo -49.30 % (2020-04) · máximo 13.37 % (2023-03) · desv. est. 7.29
+[2026-11-14 13:43:34] [04_analisis] Correlación entre la brecha del crédito y la del PBI: -0.413
+[2026-11-14 13:43:35] [04_analisis] Figura guardada: salidas/fig_ciclos.svg
+[2026-11-14 13:43:35] [04_analisis] Bloque 2 · Análisis descriptivo del panel de bancos
+[2026-11-14 13:43:35] [04_analisis] Tabla guardada: salidas/tabla_descriptivos.csv · 8 filas
+[2026-11-14 13:43:35] [04_analisis] Apalancamiento del sistema: 10.28 veces (2016-01) -> 7.24 veces (2025-12) · máximo 10.70 (2016-03)
+[2026-11-14 13:43:35] [04_analisis] Ratio de capital global (mediana): 14.38 % -> 18.59 %
+[2026-11-14 13:43:35] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2016): 83.1 %
+[2026-11-14 13:43:35] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2025): 83.7 %
+[2026-11-14 13:43:35] [04_analisis] Correlación entre apalancamiento acotado y ratio de capital global: -0.372
+[2026-11-14 13:43:35] [04_analisis] Figura guardada: salidas/fig_apalancamiento.svg
+[2026-11-14 13:43:36] [04_analisis] Figura guardada: salidas/fig_mapa_calor.svg
+[2026-11-14 13:43:36] [04_analisis] Bloque 3 · Estacionariedad y prueba de prociclicidad (H1)
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_raiz_unitaria.csv · 9 filas
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · ln apalancamiento: Z = -1.54 (p = 0.062) -> Raíz unitaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Δ ln apalancamiento: Z = -13.35 (p = < 0.001) -> Estacionaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · ln activo real: Z = -2.86 (p = 0.002) -> Estacionaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Δ ln activo: Z = -14.35 (p = < 0.001) -> Estacionaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Ratio de capital global: Z = -1.24 (p = 0.108) -> Raíz unitaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Morosidad: Z = -2.18 (p = 0.015) -> Estacionaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Brecha del crédito: τ = -1.39 (p = 0.587) -> Raíz unitaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Brecha del PBI: τ = -3.34 (p = 0.015) -> Estacionaria
+[2026-11-14 13:43:38] [04_analisis] Raíz unitaria · Tasa de referencia: τ = -2.48 (p = 0.121) -> Raíz unitaria
+[2026-11-14 13:43:38] [04_analisis] Adrian-Shin (1): β = 0.905 (e.e. DK 0.030, p = 0.0000) · N = 1785 · R² within = 0.707
+[2026-11-14 13:43:38] [04_analisis] Adrian-Shin (2): β = 0.917 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-14 13:43:38] [04_analisis] Adrian-Shin (3): β = 0.913 (e.e. DK 0.028, p = 0.0000) · N = 1785 · R² within = 0.721
+[2026-11-14 13:43:38] [04_analisis] Adrian-Shin (4): β = 0.914 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-14 13:43:38] [04_analisis] Adrian-Shin (5): β = 0.856 (e.e. DK 0.043, p = 0.0000) · N = 1620 · R² within = 0.467
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_adrian_shin.csv · 22 filas
+[2026-11-14 13:43:38] [04_analisis] Figura guardada: salidas/fig_adrian_shin.svg
+[2026-11-14 13:43:38] [04_analisis] Bloque 4 · Modelo dinámico del apalancamiento frente al ciclo (H2)
+[2026-11-14 13:43:38] [04_analisis] Modelo (1): ρ = 0.933 · γ1 (crédito) = 0.0698 (p = 0.168) · γ2 (PBI) = -0.0531 (p = 0.001) · N = 1785
+[2026-11-14 13:43:38] [04_analisis] Modelo (2): ρ = 0.920 · γ1 (crédito) = -0.0276 (p = 0.678) · γ2 (PBI) = -0.0049 (p = 0.838) · N = 1785
+[2026-11-14 13:43:38] [04_analisis] Modelo (3): γ1 (crédito) = 0.8011 (p = 0.095) · γ2 (PBI) = 0.0086 (p = 0.948) · N = 1620
+[2026-11-14 13:43:38] [04_analisis] Modelo (4): γ1 (crédito) = 0.3416 (p = 0.349) · γ2 (PBI) = 0.2783 (p = 0.000) · N = 1620
+[2026-11-14 13:43:38] [04_analisis] Orden de magnitud del sesgo de Nickell en (1)-(2), (1 + ρ)/(T − 1): 0.016
+[2026-11-14 13:43:38] [04_analisis] Modelo (1) · Largo plazo: brecha del crédito: 1.042 (e.e. 0.892, p = 0.243)
+[2026-11-14 13:43:38] [04_analisis] Modelo (2) · Largo plazo: brecha del crédito: -0.343 (e.e. 0.747, p = 0.646)
+[2026-11-14 13:43:38] [04_analisis] Modelo (1) · Largo plazo: brecha del PBI: -0.793 (e.e. 0.361, p = 0.028)
+[2026-11-14 13:43:38] [04_analisis] Modelo (2) · Largo plazo: brecha del PBI: -0.061 (e.e. 0.312, p = 0.846)
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_modelo_dinamico.csv · 28 filas
+[2026-11-14 13:43:38] [04_analisis] Bloque 5 · Heterogeneidad (H3) y robustez
+[2026-11-14 13:43:38] [04_analisis] Bancos con colchón alto (7): ['Alfin Banco', 'Banco Falabella', 'Banco ICBC', 'Banco Santander Perú', 'Citibank Perú', 'Interbank', 'Mibanco']
+[2026-11-14 13:43:38] [04_analisis] β · Prepandemia 2016 a feb. 2020: 0.887 (IC 95 %: 0.820 a 0.955)
+[2026-11-14 13:43:38] [04_analisis] β · Pandemia mar. 2020 a 2021: 0.957 (IC 95 %: 0.864 a 1.050)
+[2026-11-14 13:43:38] [04_analisis] β · Pospandemia 2022 a 2025: 0.983 (IC 95 %: 0.929 a 1.038)
+[2026-11-14 13:43:38] [04_analisis] β · Colchón bajo (RCG < mediana): 0.996 (IC 95 %: 0.935 a 1.057)
+[2026-11-14 13:43:38] [04_analisis] β · Colchón alto (RCG > mediana): 0.911 (IC 95 %: 0.852 a 0.970)
+[2026-11-14 13:43:38] [04_analisis] Diferencia pospandemia − prepandemia: 0.096 (p = 0.036)
+[2026-11-14 13:43:38] [04_analisis] Diferencia colchón alto − colchón bajo: -0.085 (p = 0.059)
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_heterogeneidad.csv · 7 filas
+[2026-11-14 13:43:38] [04_analisis] Figura guardada: salidas/fig_heterogeneidad.svg
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_robustez.csv · 7 filas
+[2026-11-14 13:43:38] [04_analisis] Robustez · Base: apalancamiento acotado (P1-P99), brechas de Hamilton: β = 0.917*** · γ2 = 0.278***
+[2026-11-14 13:43:38] [04_analisis] Robustez · Apalancamiento original (sin acotar): β = 0.927*** · γ2 = 0.258**
+[2026-11-14 13:43:38] [04_analisis] Robustez · Sin Alfin Banco: β = 0.918*** · γ2 = 0.267***
+[2026-11-14 13:43:38] [04_analisis] Robustez · Brechas con el filtro HP (λ = 129 600): β = — · γ2 = 0.292***
+[2026-11-14 13:43:38] [04_analisis] Robustez · Sin los meses de pandemia (2020-03 a 2021-12): β = 0.909*** · γ2 = -0.189
+[2026-11-14 13:43:38] [04_analisis] Robustez · Sin los 4 bancos más grandes: β = 0.915*** · γ2 = 0.302***
+[2026-11-14 13:43:38] [04_analisis] Robustez · Con efectos fijos de mes (absorben las brechas): β = 0.914*** · γ2 = —
+[2026-11-14 13:43:38] [04_analisis] Tabla guardada: salidas/tabla_robustez_gmm.csv · 16 filas
+[2026-11-14 13:43:38] [04_analisis] System GMM: ρ = -0.007 · 14 instrumentos · Hansen p = 0.010 · AR(1) p = 0.119 · AR(2) p = 0.105
+[2026-11-14 13:43:38] [04_analisis] Análisis terminado sin errores
+[2026-11-24 12:47:50] [04_analisis] Inicio del análisis
+[2026-11-24 12:47:50] [04_analisis] Versiones: Python 3.14.7 · numpy 2.5.3 · pandas 3.0.6 · scipy 1.18.1 · matplotlib 3.11.2
+[2026-11-24 12:47:50] [04_analisis] Bloque 1 · Fuentes y ciclo económico
+[2026-11-24 12:47:50] [04_analisis] Tabla guardada: salidas/tabla_fuentes.csv · 7 filas
+[2026-11-24 12:47:50] [04_analisis] Tabla guardada: salidas/brechas_ciclo.csv · 120 filas
+[2026-11-24 12:47:50] [04_analisis] brecha_credito: mínimo -7.57 % (2024-02) · máximo 12.45 % (2020-08) · desv. est. 5.31
+[2026-11-24 12:47:50] [04_analisis] brecha_pbi: mínimo -49.30 % (2020-04) · máximo 13.37 % (2023-03) · desv. est. 7.29
+[2026-11-24 12:47:50] [04_analisis] Correlación entre la brecha del crédito y la del PBI: -0.413
+[2026-11-24 12:47:51] [04_analisis] Figura guardada: salidas/fig_ciclos.svg
+[2026-11-24 12:47:51] [04_analisis] Bloque 2 · Análisis descriptivo del panel de bancos
+[2026-11-24 12:47:51] [04_analisis] Tabla guardada: salidas/tabla_descriptivos.csv · 8 filas
+[2026-11-24 12:47:51] [04_analisis] Apalancamiento del sistema: 10.28 veces (2016-01) -> 7.24 veces (2025-12) · máximo 10.70 (2016-03)
+[2026-11-24 12:47:51] [04_analisis] Ratio de capital global (mediana): 14.38 % -> 18.59 %
+[2026-11-24 12:47:51] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2016): 83.1 %
+[2026-11-24 12:47:51] [04_analisis] Participación de los 4 bancos más grandes en el activo (dic. 2025): 83.7 %
+[2026-11-24 12:47:51] [04_analisis] Correlación entre apalancamiento acotado y ratio de capital global: -0.372
+[2026-11-24 12:47:51] [04_analisis] Figura guardada: salidas/fig_apalancamiento.svg
+[2026-11-24 12:47:52] [04_analisis] Figura guardada: salidas/fig_mapa_calor.svg
+[2026-11-24 12:47:52] [04_analisis] Bloque 3 · Estacionariedad y prueba de prociclicidad (H1)
+[2026-11-24 12:47:55] [04_analisis] Tabla guardada: salidas/tabla_raiz_unitaria.csv · 9 filas
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · ln apalancamiento: Z = -1.54 (p = 0.062) -> Raíz unitaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Δ ln apalancamiento: Z = -13.35 (p = < 0.001) -> Estacionaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · ln activo real: Z = -2.86 (p = 0.002) -> Estacionaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Δ ln activo: Z = -14.35 (p = < 0.001) -> Estacionaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Ratio de capital global: Z = -1.24 (p = 0.108) -> Raíz unitaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Morosidad: Z = -2.18 (p = 0.015) -> Estacionaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Brecha del crédito: τ = -1.39 (p = 0.587) -> Raíz unitaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Brecha del PBI: τ = -3.34 (p = 0.015) -> Estacionaria
+[2026-11-24 12:47:55] [04_analisis] Raíz unitaria · Tasa de referencia: τ = -2.48 (p = 0.121) -> Raíz unitaria
+[2026-11-24 12:47:55] [04_analisis] Adrian-Shin (1): β = 0.905 (e.e. DK 0.030, p = 0.0000) · N = 1785 · R² within = 0.707
+[2026-11-24 12:47:55] [04_analisis] Adrian-Shin (2): β = 0.917 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-24 12:47:55] [04_analisis] Adrian-Shin (3): β = 0.913 (e.e. DK 0.028, p = 0.0000) · N = 1785 · R² within = 0.721
+[2026-11-24 12:47:55] [04_analisis] Adrian-Shin (4): β = 0.914 (e.e. DK 0.029, p = 0.0000) · N = 1785 · R² within = 0.719
+[2026-11-24 12:47:55] [04_analisis] Adrian-Shin (5): β = 0.856 (e.e. DK 0.043, p = 0.0000) · N = 1620 · R² within = 0.467
+[2026-11-24 12:47:56] [04_analisis] Tabla guardada: salidas/tabla_adrian_shin.csv · 22 filas
+[2026-11-24 12:47:56] [04_analisis] Figura guardada: salidas/fig_adrian_shin.svg
+[2026-11-24 12:47:56] [04_analisis] Bloque 4 · Modelo dinámico del apalancamiento frente al ciclo (H2)
+[2026-11-24 12:47:56] [04_analisis] Modelo (1): ρ = 0.933 · γ1 (crédito) = 0.0698 (p = 0.168) · γ2 (PBI) = -0.0531 (p = 0.001) · N = 1785
+[2026-11-24 12:47:56] [04_analisis] Modelo (2): ρ = 0.920 · γ1 (crédito) = -0.0276 (p = 0.678) · γ2 (PBI) = -0.0049 (p = 0.838) · N = 1785
+[2026-11-24 12:47:56] [04_analisis] Modelo (3): γ1 (crédito) = 0.8011 (p = 0.095) · γ2 (PBI) = 0.0086 (p = 0.948) · N = 1620
+[2026-11-24 12:47:56] [04_analisis] Modelo (4): γ1 (crédito) = 0.3416 (p = 0.349) · γ2 (PBI) = 0.2783 (p = 0.000) · N = 1620
+[2026-11-24 12:47:56] [04_analisis] Orden de magnitud del sesgo de Nickell en (1)-(2), (1 + ρ)/(T − 1): 0.016
+[2026-11-24 12:47:56] [04_analisis] Modelo (1) · Largo plazo: brecha del crédito: 1.042 (e.e. 0.892, p = 0.243)
+[2026-11-24 12:47:56] [04_analisis] Modelo (2) · Largo plazo: brecha del crédito: -0.343 (e.e. 0.747, p = 0.646)
+[2026-11-24 12:47:56] [04_analisis] Modelo (1) · Largo plazo: brecha del PBI: -0.793 (e.e. 0.361, p = 0.028)
+[2026-11-24 12:47:56] [04_analisis] Modelo (2) · Largo plazo: brecha del PBI: -0.061 (e.e. 0.312, p = 0.846)
+[2026-11-24 12:47:56] [04_analisis] Tabla guardada: salidas/tabla_modelo_dinamico.csv · 28 filas
+[2026-11-24 12:47:56] [04_analisis] Bloque 5 · Heterogeneidad (H3) y robustez
+[2026-11-24 12:47:56] [04_analisis] Bancos con colchón alto (7): ['Alfin Banco', 'Banco Falabella', 'Banco ICBC', 'Banco Santander Perú', 'Citibank Perú', 'Interbank', 'Mibanco']
+[2026-11-24 12:47:57] [04_analisis] β · Prepandemia 2016 a feb. 2020: 0.887 (IC 95 %: 0.820 a 0.955)
+[2026-11-24 12:47:57] [04_analisis] β · Pandemia mar. 2020 a 2021: 0.957 (IC 95 %: 0.864 a 1.050)
+[2026-11-24 12:47:57] [04_analisis] β · Pospandemia 2022 a 2025: 0.983 (IC 95 %: 0.929 a 1.038)
+[2026-11-24 12:47:57] [04_analisis] β · Colchón bajo (RCG < mediana): 0.996 (IC 95 %: 0.935 a 1.057)
+[2026-11-24 12:47:57] [04_analisis] β · Colchón alto (RCG > mediana): 0.911 (IC 95 %: 0.852 a 0.970)
+[2026-11-24 12:47:57] [04_analisis] Diferencia pospandemia − prepandemia: 0.096 (p = 0.036)
+[2026-11-24 12:47:57] [04_analisis] Diferencia colchón alto − colchón bajo: -0.085 (p = 0.059)
+[2026-11-24 12:47:57] [04_analisis] Tabla guardada: salidas/tabla_heterogeneidad.csv · 7 filas
+[2026-11-24 12:47:57] [04_analisis] Figura guardada: salidas/fig_heterogeneidad.svg
+[2026-11-24 12:47:58] [04_analisis] Tabla guardada: salidas/tabla_robustez.csv · 7 filas
+[2026-11-24 12:47:58] [04_analisis] Robustez · Base: apalancamiento acotado (P1-P99), brechas de Hamilton: β = 0.917*** · γ2 = 0.278***
+[2026-11-24 12:47:58] [04_analisis] Robustez · Apalancamiento original (sin acotar): β = 0.927*** · γ2 = 0.258**
+[2026-11-24 12:47:58] [04_analisis] Robustez · Sin Alfin Banco: β = 0.918*** · γ2 = 0.267***
+[2026-11-24 12:47:58] [04_analisis] Robustez · Brechas con el filtro HP (λ = 129 600): β = — · γ2 = 0.292***
+[2026-11-24 12:47:58] [04_analisis] Robustez · Sin los meses de pandemia (2020-03 a 2021-12): β = 0.909*** · γ2 = -0.189
+[2026-11-24 12:47:58] [04_analisis] Robustez · Sin los 4 bancos más grandes: β = 0.915*** · γ2 = 0.302***
+[2026-11-24 12:47:58] [04_analisis] Robustez · Con efectos fijos de mes (absorben las brechas): β = 0.914*** · γ2 = —
+[2026-11-24 12:47:58] [04_analisis] Tabla guardada: salidas/tabla_robustez_gmm.csv · 16 filas
+[2026-11-24 12:47:58] [04_analisis] System GMM: ρ = -0.007 · 14 instrumentos · Hansen p = 0.010 · AR(1) p = 0.119 · AR(2) p = 0.105
+[2026-11-24 12:47:58] [04_analisis] Bloque 6 · Análisis complementario
+[2026-11-24 12:47:59] [04_analisis] Tabla guardada: salidas/beta_movil.csv · 84 filas
+[2026-11-24 12:47:59] [04_analisis] β móvil (36 meses): primera ventana 0.840 (2019-01) · última 0.996 (2025-12) · máximo 1.040 (2025-08) · mínimo 0.840 (2019-01)
+[2026-11-24 12:48:00] [04_analisis] Figura guardada: salidas/fig_beta_movil.svg
+[2026-11-24 12:48:02] [04_analisis] Figura guardada: salidas/fig_bancos.svg
+[2026-11-24 12:48:03] [04_analisis] Figura guardada: salidas/fig_morosidad_capital.svg
+[2026-11-24 12:48:03] [04_analisis] Morosidad mediana: 2.55 % (2016-01) -> 3.20 % (2025-12) · máximo 4.74 % (2024-06)
+[2026-11-24 12:48:03] [04_analisis] Figura guardada: salidas/fig_correlaciones.svg
+[2026-11-24 12:48:03] [04_analisis] Correlación apalancamiento-ratio de capital: -0.372 · apalancamiento-morosidad: -0.107
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (a) Brecha del crédito · Sin control de pandemia (modelo 1) · a 12 meses: 0.619 % (IC 95 %: -0.293 a 1.531)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (a) Brecha del crédito · Sin control de pandemia (modelo 1) · a 36 meses: 0.962 % (IC 95 %: -0.573 a 2.496)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (a) Brecha del crédito · Con control de pandemia (modelo 2) · a 12 meses: -0.228 % (IC 95 %: -1.255 a 0.800)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (a) Brecha del crédito · Con control de pandemia (modelo 2) · a 36 meses: -0.328 % (IC 95 %: -1.746 a 1.090)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (b) Brecha del PBI · Sin control de pandemia (modelo 1) · a 12 meses: -0.471 % (IC 95 %: -0.761 a -0.182)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (b) Brecha del PBI · Sin control de pandemia (modelo 1) · a 36 meses: -0.732 % (IC 95 %: -1.300 a -0.164)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (b) Brecha del PBI · Con control de pandemia (modelo 2) · a 12 meses: -0.040 % (IC 95 %: -0.434 a 0.354)
+[2026-11-24 12:48:03] [04_analisis] Respuesta · (b) Brecha del PBI · Con control de pandemia (modelo 2) · a 36 meses: -0.058 % (IC 95 %: -0.637 a 0.521)
+[2026-11-24 12:48:03] [04_analisis] Figura guardada: salidas/fig_respuesta_dinamica.svg
+[2026-11-24 12:48:03] [04_analisis] Tabla guardada: salidas/tabla_bancos.csv · 15 filas
+[2026-11-24 12:48:03] [04_analisis] Análisis terminado sin errores
